@@ -1,5 +1,5 @@
 import random
-from fastapi import APIRouter
+from fastapi import APIRouter, Form
 from DAL.telegram_bot import TelegramBot
 from fastapi.responses import PlainTextResponse
 
@@ -17,7 +17,7 @@ async def random_number():
 
 
 @router.post('/string/', response_class=PlainTextResponse)
-async def random_string(string: str):
+async def random_string(string: str = Form(...)):
     telegram_bot = TelegramBot()
     telegram_bot.insert_string(string=string)
 
