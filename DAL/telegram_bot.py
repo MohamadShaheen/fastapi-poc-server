@@ -15,9 +15,15 @@ mongodb_url = f'mongodb+srv://{mongodb_username}:{mongodb_password}@telegrambot.
 class TelegramBot:
     def __init__(self):
         client = MongoClient(mongodb_url)
-        database = client['telegram_bot_data']
-        self.collection = database['numbers']
+        self.database = client['telegram_bot_data']
 
     def insert_number(self, number: int) -> None:
-        self.collection.insert_one({'random_number': number})
+        collection = self.database['numbers']
+        collection.insert_one({'random_number': number})
+
+    def insert_string(self, string: str) -> None:
+        collection = self.database['strings']
+        collection.insert_one({'string': string})
+
+
 
